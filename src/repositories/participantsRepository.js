@@ -1,21 +1,29 @@
 import connection from '../database/database.js'
 
 
-const repositoryFunction = async ({ email, name, age }) => {
-	const data = {
-		email,
+const findParticipant = async ({ name }) => {
+	const { mongoClient, db } = await connection()
+
+	const participant = await db.collection('participants').findOne({ name })
+
+	mongoClient.close()
+	return participant
+}
+
+const insertParticipant = async ({ name, lastStatus }) => {
+	const { mongoClient, db } = await connection()
+
+	const participant = await db.collection('participants').insertOne({
 		name,
-		age,
-	}
-	
+		lastStatus,
+	})
 
-	// const result = await connection.databaseFunction(data)
-	const result = await data
-
-	return result
+	mongoClient.close()
+	return participant
 }
 
 
 export {
-	repositoryFunction,
+	findParticipant,
+	insertParticipant,
 }
