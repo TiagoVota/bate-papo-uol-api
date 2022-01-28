@@ -9,7 +9,7 @@ import ExampleError from '../errors/ExampleError.js'
 const serviceFunction = async (exampleInfo) => {
 	const exampleErrors = validationErrors({
 		objectToValid: exampleInfo,
-		objectValidation: messagesValidation.exampleSchema
+		objectValidation: messagesValidation.messageSchema
 	})
 
 	if (exampleErrors) throw new ExampleError(exampleErrors)

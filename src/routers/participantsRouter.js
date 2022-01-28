@@ -5,9 +5,9 @@ import * as participantsController from '../controllers/participantsController.j
 
 const router = new Router()
 
-router.get('', participantsController.controllerFunction)
+// router.get('', participantsController.getParticipants)
 
-router.post('', participantsController.controllerFunction)
+router.post('', participantsController.addParticipant)
 
 
 export default router
