@@ -1,6 +1,20 @@
 import * as messagesService from '../services/messagesService.js'
 
 
+const getMessages = async (req, res, next) => {
+	const { query: limit } = req
+
+	try {
+		const messages = await messagesService.serviceFunction({ limit })
+		
+		return res.status(200).send(messages)
+
+	} catch (error) {
+		next(error)
+	}
+}
+
+
 const controllerFunction = async (req, res, next) => {
 	const { body: exampleInfo } = req
 
@@ -10,15 +24,12 @@ const controllerFunction = async (req, res, next) => {
 		return res.status(201).send(result)
 
 	} catch (error) {
-		const { name: errorName, message, status } = error
-
-		if (errorName === 'ExampleError') return res.status(status).send(message)
-		
 		next(error)
 	}
 }
 
 
 export {
+	getMessages,
 	controllerFunction,
 }
