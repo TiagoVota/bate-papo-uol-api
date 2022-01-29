@@ -5,7 +5,7 @@ import * as participantsController from '../controllers/participantsController.j
 
 const router = new Router()
 
-// router.get('', participantsController.getParticipants)
+router.get('', participantsController.getParticipants)
 
 router.post('', participantsController.addParticipant)
 

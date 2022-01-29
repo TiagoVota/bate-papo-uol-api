@@ -1,7 +1,10 @@
 import dayjs from 'dayjs'
 
 
-const timestampToTime = (timestamp) => dayjs(timestamp).format('HH:mm:ss')
+const timestampToTime = (timestamp) => {
+	console.log({ timestamp })
+	return dayjs(timestamp).format('HH:mm:ss')
+}
 
 
 export {

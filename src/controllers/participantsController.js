@@ -3,29 +3,27 @@ import * as participantsService from '../services/participantsService.js'
 import errorsName from '../utils/errorsName.js'
 
 
-// const getParticipants = async (req, res, next) => {
-// 	const { body: participantInfo } = req
+const getParticipants = async (req, res, next) => {
+	try {
+		const participants = await participantsService.listParticipants()
+	
+		return res.status(200).send(participants)
 
-// 	try {
-// 		const participant = await participantsService.serviceFunction(participantInfo)
-		
-// 		return res.status(201).send(participant)
+	} catch (error) {
+		const { name: errorName, message, status } = error
 
-// 	} catch (error) {
-// 		const { name: errorName, message, status } = error
+		if (errorsName.includes(errorName)) return res.status(status).send(message)
 
-// 		if (errorName === 'InputsError') return res.status(status).send(message)
-		
-// 		next(error)
-// 	}
-// }
+		next(error)
+	}
+}
 
 const addParticipant = async (req, res, next) => {
 	const { body: participantInfo } = req
 
 	try {
 		const participant = await participantsService
-			.serviceFunction(participantInfo)
+			.addNewParticipant(participantInfo)
 		
 		return res.status(201).send(participant)
 
@@ -40,6 +38,6 @@ const addParticipant = async (req, res, next) => {
 
 
 export {
-	// getParticipants,
+	getParticipants,
 	addParticipant,
 }
