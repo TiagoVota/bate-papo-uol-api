@@ -10,6 +10,15 @@ const findParticipant = async ({ name }) => {
 	return participant
 }
 
+const findParticipants = async () => {
+	const { mongoClient, db } = await connection()
+
+	const participants = await db.collection('participants').find({}).toArray()
+
+	mongoClient.close()
+	return participants
+}
+
 const insertParticipant = async ({ name, lastStatus }) => {
 	const { mongoClient, db } = await connection()
 
@@ -25,5 +34,6 @@ const insertParticipant = async ({ name, lastStatus }) => {
 
 export {
 	findParticipant,
+	findParticipants,
 	insertParticipant,
 }

@@ -4,14 +4,14 @@ import * as participantsValidation from '../validations/participantsValidation.j
 
 import { validationErrors } from '../validations/handleValidation.js'
 import { isReservedWord } from '../utils/reservedWords.js'
+import { makeEntryMessage } from '../helpers/messagesHelper.js'
 
 import InputsError from '../errors/InputsError.js'
 import ConflictParticipantError from '../errors/ConflictParticipantError.js'
 import ReservedWordNameError from '../errors/ReservedWordNameError.js'
-import { makeEntryMessage } from '../helpers/messagesHelper.js'
 
 
-const serviceFunction = async (participantInfo) => {
+const addNewParticipant = async (participantInfo) => {
 	const participantErrors = validationErrors({
 		objectToValid: participantInfo,
 		objectValidation: participantsValidation.participantSchema
@@ -25,12 +25,12 @@ const serviceFunction = async (participantInfo) => {
 
 	const lastStatus = Date.now()
 	const existentParticipant = await participantsRepository
-		.findParticipant({ name, lastStatus })
+		.findParticipant({ name })
 	
 	if (existentParticipant) throw new ConflictParticipantError(name)
 
 	const participant = await participantsRepository
-		.insertParticipant(participantInfo)
+		.insertParticipant({ name, lastStatus })
 	
 	await messagesRepository.insertMessage(makeEntryMessage({
 		name,
@@ -41,6 +41,16 @@ const serviceFunction = async (participantInfo) => {
 }
 
 
+const listParticipants = async () => {
+	const participants = await participantsRepository.findParticipants()
+
+	return participants
+}
+
+
+
+
 export {
-	serviceFunction,
+	addNewParticipant,
+	listParticipants,
 }
