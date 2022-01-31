@@ -7,7 +7,7 @@ const router = new Router()
 
 router.get('', messagesController.getMessages)
 
-// router.post('', messagesController.controllerFunction)
+router.post('', messagesController.postMessage)
 
 
 export default router

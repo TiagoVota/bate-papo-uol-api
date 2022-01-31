@@ -18,13 +18,16 @@ const getMessages = async (req, res, next) => {
 }
 
 
-const controllerFunction = async (req, res, next) => {
-	const { body: exampleInfo } = req
+const postMessage = async (req, res, next) => {
+	const {
+		body: messageInfo,
+		headers: { user }
+	} = req
 
 	try {
-		const result = await messagesService.serviceFunction(exampleInfo)
+		const message = await messagesService.postUserMessage({ ...messageInfo, user })
 		
-		return res.status(201).send(result)
+		return res.status(201).send(message)
 
 	} catch (error) {
 		next(error)
@@ -34,5 +37,5 @@ const controllerFunction = async (req, res, next) => {
 
 export {
 	getMessages,
-	controllerFunction,
+	postMessage,
 }

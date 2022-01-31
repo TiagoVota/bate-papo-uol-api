@@ -8,7 +8,15 @@ const limitSchema = joi.object({
 	)
 }).max(1)
 
+const postMessageErrors = joi.object({
+	user: joi.string().required(),
+	to: joi.string().required(),
+	text: joi.string().required(),
+	type: joi.string().required()
+}).max(4)
+
 
 export {
 	limitSchema,
+	postMessageErrors,
 }

@@ -1,12 +1,12 @@
 import { timestampToTime } from '../services/service.dayjs.js'
 
 
-const makeEntryMessage = ({ name, timestamp }) => {
+const makeMessage = ({ from, to, text, type, timestamp }) => {
 	const body = {
-		from: name,
-		to: 'Todos',
-		text: 'entra na sala...',
-		type: 'status',
+		from,
+		to: to || 'Todos',
+		text: text || 'entra na sala...',
+		type: type || 'status',
 		time: timestampToTime(timestamp),
 	}
 
@@ -15,5 +15,5 @@ const makeEntryMessage = ({ name, timestamp }) => {
 
 
 export {
-	makeEntryMessage,
+	makeMessage,
 }
