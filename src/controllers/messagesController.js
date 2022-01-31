@@ -2,10 +2,13 @@ import * as messagesService from '../services/messagesService.js'
 
 
 const getMessages = async (req, res, next) => {
-	const { query: limit } = req
+	const {
+		query: { limit },
+		headers: { user }
+	} = req
 
 	try {
-		const messages = await messagesService.serviceFunction({ limit })
+		const messages = await messagesService.getMessagesList({ user, limit })
 		
 		return res.status(200).send(messages)
 

@@ -1,11 +1,14 @@
 import joi from 'joi'
 
 
-const messageSchema = joi.object({
-	name: joi.string().required()
-}).length(1)
+const limitSchema = joi.object({
+	limit: joi.alternatives().try(
+		joi.number().integer().min(1),
+		joi.string()
+	)
+}).max(1)
 
 
 export {
-	messageSchema,
+	limitSchema,
 }

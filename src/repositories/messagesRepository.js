@@ -16,6 +16,25 @@ const insertMessage = async ({ from, to, text, type, time }) => {
 	return message
 }
 
+const findMessages = async ({ user, limit }) => {
+	const { mongoClient, db } = await connection()
+
+	const findFilter = {
+		$or: [
+			{ from: user },
+			{ to: user },
+			{ to: 'Todos' },
+		]
+	}
+
+	const messages = limit
+		? await db.collection('messages').find(findFilter).limit(limit).toArray()
+		: await db.collection('messages').find(findFilter).toArray()
+
+	mongoClient.close()
+	return messages
+}
+
 
 const repositoryFunction = async ({ email, name, age }) => {
 	const data = {
@@ -34,5 +53,6 @@ const repositoryFunction = async ({ email, name, age }) => {
 
 export {
 	insertMessage,
+	findMessages,
 	repositoryFunction,
 }
