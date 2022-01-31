@@ -14,7 +14,17 @@ const keepUserAlive = async (req, res, next) => {
 	}
 }
 
+const disconnectParticipants = async () => {
+	try {
+		await statusService.removeParticipants()
+
+	} catch (error) {
+		console.log(`Disconnect participants error:\n  ${error}`)
+	}
+}
+
 
 export {
 	keepUserAlive,
+	disconnectParticipants,
 }

@@ -47,9 +47,30 @@ const updateLastStatus = async ({ name, lastStatus }) => {
 }
 
 
+const findParticipantsBelowLastStatus = async ({ timeLimit }) => {
+	const { mongoClient, db } = await connection()
+	
+	const participants = await db.collection('participants')
+		.find({ lastStatus: { $lt: timeLimit } }).toArray()
+
+	mongoClient.close()
+	return participants
+}
+
+const deleteParticipantsByIdList = async ({ participantsIds }) => {
+	const { mongoClient, db } = await connection()
+	
+	await db.collection('participants')
+		.deleteMany({ _id: { $in: participantsIds}})
+	return mongoClient.close()
+}
+
+
 export {
 	findParticipant,
 	findParticipants,
 	insertParticipant,
 	updateLastStatus,
+	findParticipantsBelowLastStatus,
+	deleteParticipantsByIdList,
 }
