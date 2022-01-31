@@ -21,7 +21,7 @@ const getMessagesList = async ({ user, limit }) => {
 
 	if (queryErrors) throw new InputsError(queryErrors)
 
-	const messages = await messagesRepository.findMessages({ user, limit })
+	const messages = await messagesRepository.findLastMessages({ user, limit })
 
 	return messages
 }
