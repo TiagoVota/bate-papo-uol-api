@@ -19,7 +19,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-setInterval(statusController.disconnectParticipants, 1 * MILLISECONDS)
+setInterval(statusController.disconnectParticipants, 15 * MILLISECONDS)
 
 app.use('/health', healthRouter)
 app.use('/participants', participantsRouter)

@@ -26,7 +26,7 @@ const insertMessages = async ({ messages }) => {
 }
 
 
-const findMessages = async ({ user, limit }) => {
+const findLastMessages = async ({ user, limit }) => {
 	const { mongoClient, db } = await connection()
 
 	const findFilter = {
@@ -38,16 +38,18 @@ const findMessages = async ({ user, limit }) => {
 	}
 
 	const messages = limit
-		? await db.collection('messages').find(findFilter).limit(limit).toArray()
-		: await db.collection('messages').find(findFilter).toArray()
+		? await db.collection('messages').find(findFilter)
+			.sort({ _id: -1 }).limit(limit).toArray()
+		: await db.collection('messages').find(findFilter)
+			.sort({ _id: -1 }).toArray()
 
 	mongoClient.close()
-	return messages
+	return messages.reverse()
 }
 
 
 export {
 	insertMessage,
 	insertMessages,
-	findMessages,
+	findLastMessages,
 }
