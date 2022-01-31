@@ -10,6 +10,7 @@ const findParticipant = async ({ name }) => {
 	return participant
 }
 
+
 const findParticipants = async () => {
 	const { mongoClient, db } = await connection()
 
@@ -18,6 +19,7 @@ const findParticipants = async () => {
 	mongoClient.close()
 	return participants
 }
+
 
 const insertParticipant = async ({ name, lastStatus }) => {
 	const { mongoClient, db } = await connection()
@@ -32,8 +34,22 @@ const insertParticipant = async ({ name, lastStatus }) => {
 }
 
 
+const updateLastStatus = async ({ name, lastStatus }) => {
+	const { mongoClient, db } = await connection()
+	
+	const participant = await db.collection('participants').updateOne(
+		{ name },
+		{ $set: { name, lastStatus } }
+	)
+
+	mongoClient.close()
+	return participant
+}
+
+
 export {
 	findParticipant,
 	findParticipants,
 	insertParticipant,
+	updateLastStatus,
 }

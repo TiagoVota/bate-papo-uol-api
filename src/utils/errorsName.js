@@ -3,7 +3,7 @@ const errorsName = [
 	'ConflictParticipantError',
 	'ReservedWordNameError',
 	'MessageTypeError',
-	'NoSenderError',
+	'NoUserError',
 ]
 
 const isPersonalizedError = errorName => errorsName.includes(errorName)

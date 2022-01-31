@@ -8,7 +8,7 @@ import { isValidMessageType } from '../utils/messagesTypes.js'
 
 import InputsError from '../errors/InputsError.js'
 import MessageTypeError from '../errors/MessageTypeError.js'
-import NoSenderError from '../errors/NoSenderError.js'
+import NoUserError from '../errors/NoUserError.js'
 
 
 const getMessagesList = async ({ user, limit }) => {
@@ -41,7 +41,7 @@ const postUserMessage = async (messageInfo) => {
 	const existentSender = await participantsRepository
 		.findParticipant({ name: user })
 	
-	if (!existentSender) throw new NoSenderError(user)
+	if (!existentSender) throw new NoUserError(user)
 
 	const message = await messagesRepository.insertMessage(makeMessage({
 		from: user,

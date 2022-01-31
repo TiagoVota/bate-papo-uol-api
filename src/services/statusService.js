@@ -1,15 +1,23 @@
-import * as statusRepository from '../repositories/statusRepository.js'
+import * as participantsRepository from '../repositories/participantsRepository.js'
+
+import NoUserError from '../errors/NoUserError.js'
 
 
-const serviceFunction = async (exampleInfo) => {
+const handleUserStatus = async ({ user }) => {
 
-	const result = await statusRepository.repositoryFunction(exampleInfo)
+	const existentUser = await participantsRepository
+		.findParticipant({ name: user })
 
-	return result
+	if (!existentUser) throw new NoUserError(user)
+		
+	const participant = await participantsRepository
+		.updateLastStatus({ name: user, lastStatus: Date.now() })
+
+	return participant
 }
 
 
 
 export {
-	serviceFunction,
+	handleUserStatus,
 }
