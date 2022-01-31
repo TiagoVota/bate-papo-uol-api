@@ -6,4 +6,9 @@ const errorsName = [
 	'NoSenderError',
 ]
 
-export default errorsName
+const isPersonalizedError = errorName => errorsName.includes(errorName)
+
+
+export {
+	isPersonalizedError,
+}

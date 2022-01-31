@@ -48,8 +48,6 @@ const listParticipants = async () => {
 }
 
 
-
-
 export {
 	addNewParticipant,
 	listParticipants,
