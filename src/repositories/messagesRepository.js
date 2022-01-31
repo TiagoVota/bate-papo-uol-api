@@ -17,6 +17,15 @@ const insertMessage = async ({ from, to, text, type, time }) => {
 }
 
 
+const insertMessages = async ({ messages }) => {
+	const { mongoClient, db } = await connection()
+
+	await db.collection('messages').insertMany(messages)
+
+	return mongoClient.close()
+}
+
+
 const findMessages = async ({ user, limit }) => {
 	const { mongoClient, db } = await connection()
 
@@ -39,5 +48,6 @@ const findMessages = async ({ user, limit }) => {
 
 export {
 	insertMessage,
+	insertMessages,
 	findMessages,
 }
