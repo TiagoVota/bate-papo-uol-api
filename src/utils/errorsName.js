@@ -1,7 +1,9 @@
 const errorsName = [
 	'InputsError',
 	'ConflictParticipantError',
-	'ReservedWordNameError'
+	'ReservedWordNameError',
+	'MessageTypeError',
+	'NoSenderError',
 ]
 
 export default errorsName

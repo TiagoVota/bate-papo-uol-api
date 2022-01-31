@@ -4,7 +4,7 @@ import * as participantsValidation from '../validations/participantsValidation.j
 
 import { validationErrors } from '../validations/handleValidation.js'
 import { isReservedWord } from '../utils/reservedWords.js'
-import { makeEntryMessage } from '../helpers/messagesHelper.js'
+import { makeMessage } from '../helpers/messagesHelper.js'
 
 import InputsError from '../errors/InputsError.js'
 import ConflictParticipantError from '../errors/ConflictParticipantError.js'
@@ -32,8 +32,8 @@ const addNewParticipant = async (participantInfo) => {
 	const participant = await participantsRepository
 		.insertParticipant({ name, lastStatus })
 	
-	await messagesRepository.insertMessage(makeEntryMessage({
-		name,
+	await messagesRepository.insertMessage(makeMessage({
+		from: name,
 		timestamp: lastStatus
 	}))
 
