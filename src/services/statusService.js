@@ -4,7 +4,6 @@ import NoUserError from '../errors/NoUserError.js'
 
 
 const handleUserStatus = async ({ user }) => {
-
 	const existentUser = await participantsRepository
 		.findParticipant({ name: user })
 
@@ -15,7 +14,6 @@ const handleUserStatus = async ({ user }) => {
 
 	return participant
 }
-
 
 
 export {
