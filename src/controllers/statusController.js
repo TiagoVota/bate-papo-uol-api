@@ -1,24 +1,20 @@
 import * as statusService from '../services/statusService.js'
 
 
-const controllerFunction = async (req, res, next) => {
-	const { body: exampleInfo } = req
+const keepUserAlive = async (req, res, next) => {
+	const { headers: { user } } = req
 
 	try {
-		const result = await statusService.serviceFunction(exampleInfo)
+		const participant = await statusService.handleUserStatus({ user })
 		
-		return res.status(201).send(result)
+		return res.status(200).send(participant)
 
-	} catch (error) {
-		const { name: errorName, message, status } = error
-
-		if (errorName === 'ExampleError') return res.status(status).send(message)
-		
+	} catch (error) {		
 		next(error)
 	}
 }
 
 
 export {
-	controllerFunction,
+	keepUserAlive,
 }

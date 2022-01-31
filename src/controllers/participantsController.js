@@ -12,6 +12,7 @@ const getParticipants = async (req, res, next) => {
 	}
 }
 
+
 const addParticipant = async (req, res, next) => {
 	const { body: participantInfo } = req
 

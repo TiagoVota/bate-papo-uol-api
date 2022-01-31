@@ -3,5 +3,9 @@ const messagesTypes = [
 	'private_message'
 ]
 
+const isValidMessageType = type => messagesTypes.includes(type)
 
-export default messagesTypes
+
+export {
+	isValidMessageType,
+}

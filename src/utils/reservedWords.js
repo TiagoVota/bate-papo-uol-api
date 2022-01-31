@@ -3,7 +3,7 @@ const reservedWords = [
 	'privado'
 ]
 
-const isReservedWord = (name) => reservedWords.includes(name.toLowerCase())
+const isReservedWord = name => reservedWords.includes(name.toLowerCase())
 
 
 export {

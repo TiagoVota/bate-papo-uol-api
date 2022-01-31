@@ -3,7 +3,12 @@ const errorsName = [
 	'ConflictParticipantError',
 	'ReservedWordNameError',
 	'MessageTypeError',
-	'NoSenderError',
+	'NoUserError',
 ]
 
-export default errorsName
+const isPersonalizedError = errorName => errorsName.includes(errorName)
+
+
+export {
+	isPersonalizedError,
+}

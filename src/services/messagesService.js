@@ -4,12 +4,11 @@ import * as messagesValidation from '../validations/messagesValidation.js'
 
 import { validationErrors } from '../validations/handleValidation.js'
 import { makeMessage } from '../helpers/messagesHelper.js'
+import { isValidMessageType } from '../utils/messagesTypes.js'
 
 import InputsError from '../errors/InputsError.js'
 import MessageTypeError from '../errors/MessageTypeError.js'
-import NoSenderError from '../errors/NoSenderError.js'
-
-import messagesTypes from '../utils/messagesTypes.js'
+import NoUserError from '../errors/NoUserError.js'
 
 
 const getMessagesList = async ({ user, limit }) => {
@@ -37,12 +36,12 @@ const postUserMessage = async (messageInfo) => {
 	if (messageErrors) throw new InputsError(messageErrors)
 	const { user, to, text, type } = messageInfo
 
-	if (!messagesTypes.includes(type)) throw new MessageTypeError()
+	if (!isValidMessageType(type)) throw new MessageTypeError()
 
 	const existentSender = await participantsRepository
 		.findParticipant({ name: user })
 	
-	if (!existentSender) throw new NoSenderError(user)
+	if (!existentSender) throw new NoUserError(user)
 
 	const message = await messagesRepository.insertMessage(makeMessage({
 		from: user,

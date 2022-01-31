@@ -16,6 +16,7 @@ const insertMessage = async ({ from, to, text, type, time }) => {
 	return message
 }
 
+
 const findMessages = async ({ user, limit }) => {
 	const { mongoClient, db } = await connection()
 
@@ -36,23 +37,7 @@ const findMessages = async ({ user, limit }) => {
 }
 
 
-const repositoryFunction = async ({ email, name, age }) => {
-	const data = {
-		email,
-		name,
-		age,
-	}
-	
-
-	// const result = await connection.databaseFunction(data)
-	const result = await data
-
-	return result
-}
-
-
 export {
 	insertMessage,
 	findMessages,
-	repositoryFunction,
 }

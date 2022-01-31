@@ -5,7 +5,7 @@ import * as statusController from '../controllers/statusController.js'
 
 const router = new Router()
 
-router.post('', statusController.controllerFunction)
+router.post('', statusController.keepUserAlive)
 
 
 export default router
