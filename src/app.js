@@ -6,6 +6,7 @@ import participantsRouter from './routers/participantsRouter.js'
 import messagesRouter from './routers/messagesRouter.js'
 import statusRouter from './routers/statusRouter.js'
 
+import backMiddlewareError from './middlewares/backMiddlewareError.js'
 import serverMiddlewareError from './middlewares/serverMiddlewareError.js'
 
 
@@ -19,6 +20,7 @@ app.use('/participants', participantsRouter)
 app.use('/messages', messagesRouter)
 app.use('/status', statusRouter)
 
+app.use(backMiddlewareError)
 app.use(serverMiddlewareError)
 
 

@@ -5,9 +5,9 @@ import * as messagesController from '../controllers/messagesController.js'
 
 const router = new Router()
 
-router.get('', messagesController.controllerFunction)
+router.get('', messagesController.getMessages)
 
-router.post('', messagesController.controllerFunction)
+// router.post('', messagesController.controllerFunction)
 
 
 export default router
